@@ -1,0 +1,37 @@
+
+1.- ¿Cuál es el nombre aeropuerto que ha tenido mayor movimiento durante el año?
+
+Query usado:
+SELECT b.aeropuerto AS Aeropuerto_con_mas_vuelos FROM vuelo a INNER JOIN aeropuerto b ON a.aeropuertoID=b.aeropuertoID 
+GROUP BY a.aeropuertoID HAVING COUNT(*) = (SELECT COUNT(*) FROM vuelo GROUP BY aeropuertoID ORDER BY COUNT(*) DESC LIMIT 1);
+
+Respuesta: Benito Juarez y La Paz
+
+
+2.- ¿Cuál es el nombre aerolínea que ha realizado mayor número de vuelos durante
+el año?
+
+Query usado:
+SELECT b.aerolinea AS Aerolinea_con_mas_vuelos FROM vuelo a INNER JOIN aerolinea b ON a.aerolineaID=b.aerolineaID 
+GROUP BY a.aerolineaID HAVING COUNT(*) = (SELECT COUNT(*) FROM vuelo GROUP BY aerolineaID ORDER BY COUNT(*) DESC LIMIT 1);
+
+Respuesta: Aeromar e Interjet
+
+
+3.- ¿En qué día se han tenido mayor número de vuelos?
+
+Query usado:
+SELECT dia AS Dia_con_mas_vuelos FROM vuelo GROUP BY dia HAVING COUNT(*) = (SELECT COUNT(*) FROM vuelo 
+GROUP BY dia ORDER BY COUNT(*) DESC LIMIT 1);
+
+Respuesta: 2021-05-02
+
+
+4.- ¿Cuáles son las aerolíneas que tienen mas de 2 vuelos por día?
+
+Query usado
+SELECT b.aerolinea as Aerolinea , a.dia as Dia FROM vuelo a INNER JOIN  aerolinea b ON a.aerolineaID=b.aerolineaID 
+GROUP BY a.dia, b.aerolineaID  HAVING COUNT(*)>=2;
+
+Respuesta: Volaris y Aeromar para el día 2021-05-02 y Interjet para el día 2021-05-04
+
